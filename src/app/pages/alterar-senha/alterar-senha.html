@@ -1,0 +1,69 @@
+<form [formGroup]="formGroup">  
+    <mat-card fxLayout="column">
+    <mat-card-title>
+        Alteração de Senha
+    </mat-card-title>
+    <mat-card-subtitle>
+        Informe os dados para a alteração da senha
+    </mat-card-subtitle>
+    <mat-card-content fxFlex="100%">
+        <div fxLayout="column">
+        <div fxLayout="row" >
+            <mat-form-field fxFlex="100%">
+                <input matInput type="text" [(ngModel)]="usuario.nome"
+                    placeholder="Usuário"
+                    formControlName="usuario"  required>
+                <mat-error align="start"
+                     *ngIf="formGroup.controls['usuario'].hasError('required')" >
+                     Campo obrigatório</mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" >
+            <mat-form-field fxFlex="100%">
+                <input matInput type="password" [(ngModel)]="senha" 
+                    placeholder="Senha"
+                    formControlName="senha"  required>
+                <mat-error align="start"
+                        *ngIf="formGroup.controls['senha'].hasError('required')" >
+                        Campo obrigatório</mat-error>
+                <mat-hint align="start" *ngIf="formGroup.controls['senha'].errors?.equalTo && form.controls['senha'].touched" 
+                    class="mat-text-warn" >Senhas não conferem</mat-hint>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" >
+            <mat-form-field fxFlex="100%">
+                <input matInput type="password" [(ngModel)]="newsenha" (change)="onChangeNewSenha()"
+                    placeholder="Nova Senha"
+                    formControlName="newsenha"  required>
+                <mat-error align="start"
+                        *ngIf="formGroup.controls['newsenha'].hasError('required')" >
+                        Campo obrigatório</mat-error>
+                <mat-error align="start" *ngIf="formGroup.controls['newsenha'].hasError('minlength')">
+                    Minimo 6 caracteres</mat-error>
+                <mat-error align="start" *ngIf="formGroup.controls['newsenha'].hasError('maxlength')">
+                    Máximo 50 caracteres</mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" >
+            <mat-form-field fxFlex="100%">
+                <input matInput type="password" [(ngModel)]="confsenha" (change)="onChangeNewSenha()"
+                    placeholder="Confirme Senha"
+                    formControlName="confsenha"  required>
+                <mat-error align="start"
+                        *ngIf="formGroup.controls['confsenha'].hasError('required')" >
+                        Campo obrigatório</mat-error>
+                <mat-error align="start" *ngIf="formGroup.controls['confsenha'].hasError('senhaNaoConfere') " 
+                    class="mat-text-warn" >Senhas não conferem</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button color="primary" (click)="altera()" mat-button>altera</button>
+        <button color="secondary" (click)="cancelar()" mat-button>Cancelar</button>
+    </mat-card-actions>
+    <mat-card-footer>
+        Desenvolvedor {{programador}}
+    </mat-card-footer>
+</mat-card>
+</form>
